@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB98CDE322BB17540090969D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98CDE222BB17540090969D /* TableViewCell.swift */; };
 		DBD9890622B9E2A5005214FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9890522B9E2A5005214FD /* AppDelegate.swift */; };
 		DBD9890822B9E2A5005214FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9890722B9E2A5005214FD /* ViewController.swift */; };
 		DBD9890D22B9E2A6005214FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBD9890C22B9E2A6005214FD /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB98CDE222BB17540090969D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		DBD9890222B9E2A5005214FD /* SearchPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD9890522B9E2A5005214FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBD9890722B9E2A5005214FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				DBD9890522B9E2A5005214FD /* AppDelegate.swift */,
 				DBD9890722B9E2A5005214FD /* ViewController.swift */,
+				DB98CDE222BB17540090969D /* TableViewCell.swift */,
 				DBD9896D22BA2B5A005214FD /* Address.swift */,
 				DBD9896F22BA3170005214FD /* AddressExample.swift */,
 				DBD9890C22B9E2A6005214FD /* Assets.xcassets */,
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB98CDE322BB17540090969D /* TableViewCell.swift in Sources */,
 				DBD9896E22BA2B5A005214FD /* Address.swift in Sources */,
 				DBD9897022BA3170005214FD /* AddressExample.swift in Sources */,
 				DBD9890822B9E2A5005214FD /* ViewController.swift in Sources */,

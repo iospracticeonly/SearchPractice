@@ -17,13 +17,23 @@ class ViewController: UIViewController {
 	var addresses = [AddressExample]()
 	var filteredAddresses = [AddressExample]()
 	
-
-	var tableviewCell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
+	let searchController = UISearchController(searchResultsController: nil)
 	
 	// MARK: - View Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// Setup Search Controller
+		searchController.searchResultsUpdater = self
+		searchController.obscuresBackgroundDuringPresentation = false
+		searchController.searchBar.placeholder = "Search location"
+		navigationItem.searchController = searchController
+		definesPresentationContext = true
+		
+		
+		
+		
+		// Setup tableView
 		self.view.addSubview(tableview)
 		tableview.delegate = self
 		tableview.dataSource = self
@@ -32,13 +42,13 @@ class ViewController: UIViewController {
 		
 		addresses = [
 			AddressExample(name: "서울", location: "something0"),
-			AddressExample(name: "서울", location: "something1"),
-			AddressExample(name: "서울", location: "something2"),
+			AddressExample(name: "부산", location: "something1"),
+			AddressExample(name: "광주", location: "something2"),
 			AddressExample(name: "서울", location: "something3"),
 			AddressExample(name: "서울", location: "something4")
 		]
 		
-		tableview.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableview.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
 		
 	}
 	
@@ -48,6 +58,25 @@ class ViewController: UIViewController {
 		tableview.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		tableview.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		tableview.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+	}
+	
+	// MARK: - Private instance methods for searching
+	
+	func searchBarIsEmpty() -> Bool {
+		//returns true if the text is empty or nil
+		return searchController.searchBar.text?.isEmpty ?? true
+	}
+	
+	func isFiltering() -> Bool {
+		return searchController.isActive && !searchBarIsEmpty()
+	}
+	
+	func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+		filteredAddresses = addresses.filter({ (addressExample: AddressExample) -> Bool in
+			return addressExample.name.lowercased().contains(searchText.lowercased())
+		})
+		
+		tableview.reloadData()
 	}
 
 
@@ -60,16 +89,24 @@ extension ViewController: UITableViewDataSource {
 		return 1
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//		return addresses.count
+		if isFiltering() {
+			return filteredAddresses.count
+		}
 		
-		//
 		return addresses.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 		
-		
-		let address = addresses[indexPath.row]
+//		let address = addresses[indexPath.row]
+		let address: AddressExample
+		if isFiltering() {
+			address = filteredAddresses[indexPath.row]
+		} else {
+			address = addresses[indexPath.row]
+		}
 		
 		cell.textLabel!.text = address.name
 		cell.detailTextLabel?.text = address.location
@@ -85,3 +122,16 @@ extension ViewController: UITableViewDelegate {
 	
 }
 
+extension ViewController: UISearchResultsUpdating {
+	// MARK: - UISearchResultsUpdating Delegate
+	
+	func updateSearchResults(for searchController: UISearchController) {
+//		let searchBar = searchController.searchBar
+		
+		filterContentForSearchText(searchController.searchBar.text!)
+		
+		
+	}
+	
+	
+}
